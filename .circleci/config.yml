@@ -46,4 +46,3 @@ workflows:
       - migrate_db:
           requires:
             - build_javascript
-
