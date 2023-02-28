@@ -26,15 +26,15 @@ jobs:
           root: ~/project
           paths:
             - .
-    migrate_db:
-      docker:
-        - image: cimg/ruby:3.1.0
-      steps:
-        - attach_workspace:
-            at: ~/project
-        - run:
-            name: migrate the database
-            command: rails db:migrate
+  migrate_db:
+    docker:
+      - image: cimg/ruby:3.1.0
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: migrate the database
+          command: rails db:migrate
       
 workflows:
   ruby_CI: 
