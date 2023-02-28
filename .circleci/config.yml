@@ -30,3 +30,4 @@ workflows:
       - build_javascript:
           requires:
             - build
+            
