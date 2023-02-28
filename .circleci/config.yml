@@ -1,51 +1,19 @@
 version: 2.1
 
+orbs:
+  ruby: circleci/ruby@1.4.0
 jobs:
   build:
     docker:
-      - image: ruby:latest
+      - image: cimg/ruby:3.1.0
+    executor: ruby/default
     steps:
       - checkout
       - run:
-          name: Install the needed gems
-          command: bundle install --without production
-      - run:
-          name: Install npm
-          command: sudo apt update; sudo apt install npm
-      # - persist_to_workspace:
-      #     root: ~/project
-      #     paths:
-      #       - .
-  # build_javascript:
-  #   docker:
-  #     - image: node:latest
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/project
-  #     - run:
-  #         name: Install JavaScript dependencies
-  #         command: yarn install
-  #     - persist_to_workspace:
-  #         root: ~/project
-  #         paths:
-  #           - .
-  # migrate_db:
-  #   docker:
-  #     - image: cimg/ruby:3.1.0
-  #   steps:
-  #     - attach_workspace:
-  #         at: ~/project
-  #     - run:
-  #         name: migrate the database
-  #         command: rails db:migrate
-      
+          name: Which bundler?
+          command: bundle -v
+      - ruby/bundle-install
 workflows:
-  ruby_CI: 
+  sample: 
     jobs:
       - build
-      # - build_javascript:
-      #     requires:
-      #       - build
-      # - migrate_db:
-      #     requires:
-      #       - build_javascript
