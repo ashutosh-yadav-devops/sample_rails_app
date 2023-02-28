@@ -8,9 +8,25 @@ jobs:
       - checkout
       - run:
           name: Which ruby
-          command: ruby --version
+          command: bundle install --without production
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - .
+  build_javascript:
+    docker:
+      - image: node:latest
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Install JavaScript dependencies
+          command: yarn install
 
 workflows:
   ruby_CI: 
     jobs:
       - build
+      - build_javascript:
+          requires:
+            - build
