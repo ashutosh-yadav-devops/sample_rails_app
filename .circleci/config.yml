@@ -9,40 +9,43 @@ jobs:
       - run:
           name: Install the needed gems
           command: bundle install --without production
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .
-  build_javascript:
-    docker:
-      - image: node:latest
-    steps:
-      - attach_workspace:
-          at: ~/project
       - run:
-          name: Install JavaScript dependencies
-          command: yarn install
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .
-  migrate_db:
-    docker:
-      - image: cimg/ruby:3.1.0
-    steps:
-      - attach_workspace:
-          at: ~/project
-      - run:
-          name: migrate the database
-          command: rails db:migrate
+          name: Install npm
+          command: sudo apt update; sudo apt install npm
+      # - persist_to_workspace:
+      #     root: ~/project
+      #     paths:
+      #       - .
+  # build_javascript:
+  #   docker:
+  #     - image: node:latest
+  #   steps:
+  #     - attach_workspace:
+  #         at: ~/project
+  #     - run:
+  #         name: Install JavaScript dependencies
+  #         command: yarn install
+  #     - persist_to_workspace:
+  #         root: ~/project
+  #         paths:
+  #           - .
+  # migrate_db:
+  #   docker:
+  #     - image: cimg/ruby:3.1.0
+  #   steps:
+  #     - attach_workspace:
+  #         at: ~/project
+  #     - run:
+  #         name: migrate the database
+  #         command: rails db:migrate
       
 workflows:
   ruby_CI: 
     jobs:
       - build
-      - build_javascript:
-          requires:
-            - build
-      - migrate_db:
-          requires:
-            - build_javascript
+      # - build_javascript:
+      #     requires:
+      #       - build
+      # - migrate_db:
+      #     requires:
+      #       - build_javascript
