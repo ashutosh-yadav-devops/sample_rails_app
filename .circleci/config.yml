@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   ruby: circleci/ruby@1.4.0
 jobs:
-  ruby_CI:
+  build:
     docker:
       - image: cimg/ruby:3.1.0
     executor: ruby/default
@@ -13,6 +13,7 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - ruby/bundle-install
+
 workflows:
   ruby_CI: 
     jobs:
