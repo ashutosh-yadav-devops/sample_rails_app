@@ -12,8 +12,7 @@ jobs:
           command: bundle install --without production
       - run:
           name: Run rails test
-          command:  rails test
-    parallelism: 3
+          command: cd test; rails test
 workflows:
   ruby_ci: 
     jobs:
