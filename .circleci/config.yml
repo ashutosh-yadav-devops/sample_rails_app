@@ -11,8 +11,8 @@ jobs:
           name: Install the needed gems
           command: bundle install --without production
       - run:
-          name: Install javascript dependencies
-          command:  yarn install
+          name: Run rails test
+          command:  rails test
 workflows:
   ruby_ci: 
     jobs:
