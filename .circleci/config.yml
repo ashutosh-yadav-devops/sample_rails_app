@@ -10,6 +10,9 @@ jobs:
       - run:
           name: Install the needed gems
           command: bundle install --without production
+      - run:
+          name: Install javascript dependencies
+          command:  yarn install
 workflows:
   ruby_ci: 
     jobs:
