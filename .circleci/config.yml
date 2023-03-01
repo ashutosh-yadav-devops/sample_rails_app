@@ -13,6 +13,7 @@ jobs:
       - run:
           name: Run rails test
           command:  rails test
+    parallelism: 3
 workflows:
   ruby_ci: 
     jobs:
