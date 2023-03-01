@@ -11,6 +11,9 @@ jobs:
           name: Install the needed gems
           command: bundle install --without production
       - run:
+          name: Migrate db
+          command: rails db:migrate
+      - run:
           name: Run rails test
           command: cd test; rails test
 workflows:
